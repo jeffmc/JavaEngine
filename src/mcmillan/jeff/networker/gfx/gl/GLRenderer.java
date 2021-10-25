@@ -1,5 +1,7 @@
 package mcmillan.jeff.networker.gfx.gl;
 
-public class GLRenderer {
+import mcmillan.jeff.networker.gfx.Renderer;
+
+public class GLRenderer extends Renderer {
 
 }

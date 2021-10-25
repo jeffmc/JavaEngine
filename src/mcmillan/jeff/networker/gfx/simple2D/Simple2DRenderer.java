@@ -3,7 +3,9 @@ package mcmillan.jeff.networker.gfx.simple2D;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Simple2DRenderer {
+import mcmillan.jeff.networker.gfx.Renderer;
+
+public class Simple2DRenderer extends Renderer {
 	public Simple2DDisplay display;
 	private Graphics graphics;
 	private int width, height;
