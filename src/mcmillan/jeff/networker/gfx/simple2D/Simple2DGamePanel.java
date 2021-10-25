@@ -28,6 +28,6 @@ public class Simple2DGamePanel extends JPanel {
 	
 	@Override
 	public void paintComponent(Graphics g) {
-		display.render(g);
+		display.renderer.setGraphics(g);
 	}
 }

@@ -1,8 +1,6 @@
 package mcmillan.jeff.networker.gfx.simple2D;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -12,18 +10,17 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import org.joml.Vector2f;
-
 import mcmillan.jeff.networker.Launch;
 
 public class Simple2DDisplay {
 	
 	private Simple2DGamePanel panel;
+	public Simple2DRenderer renderer;
 	private JFrame frame;
 	private int width, height;
-	private int frames;
 	
-	public Simple2DDisplay(int _width, int _height) {
+	public Simple2DDisplay(Simple2DRenderer _r, int _width, int _height) {
+		renderer = _r;
 		width = _width;
 		height = _height;
 		
@@ -79,25 +76,6 @@ public class Simple2DDisplay {
 
 	public void callForNextFrame() {
 		panel.repaint();
-	}
-	
-	// TODO: Find a better name for method than "reallyRender"
-	public void render(Graphics g) {
-		g.setColor(Color.black);
-		g.fillRect(0, 0, width, height);
-		
-		g.setColor(Color.white);
-		g.drawRect(10, 10, 620, 340);
-		
-		double a = ((double)frames) / 60; 
-		double radius = 100;
-		
-		Vector2f redBox = new Vector2f((float)(Math.cos(a) * radius), (float)(Math.sin(a) * radius));
-		int r = (int) radius;
-		
-		g.setColor(Color.red);
-		g.fillRect((int)(20+r+redBox.x), (int)(20+r+redBox.y), 60, 60);
-		frames++;
 	}
 	
 	class RenderListener implements ActionListener {
