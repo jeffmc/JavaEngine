@@ -1,16 +1,15 @@
 package mcmillan.jeff.networker;
 
-import mcmillan.jeff.networker.gfx.Display;
+import mcmillan.jeff.networker.gfx.simple2D.Simple2DDisplay;
 
 public class Application {
 	
 	public boolean running = false;
-	
-	public Display display;
+	public Simple2DDisplay display;
 	
 	public void start() {
 		// Add layer stack.
-		display = new Display(640, 360);
+		display = new Simple2DDisplay(640, 360);
 		Util.init();
 		
 		run();
@@ -26,7 +25,6 @@ public class Application {
 			now = System.nanoTime();
 			if (now-lastFrame>=target) {
 				lastFrame = now;
-//				Command.InputToDispatch(Util.readLine());
 				display.callForNextFrame();
 			}
 		}

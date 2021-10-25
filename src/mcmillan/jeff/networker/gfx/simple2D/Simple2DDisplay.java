@@ -1,4 +1,4 @@
-package mcmillan.jeff.networker.gfx;
+package mcmillan.jeff.networker.gfx.simple2D;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,23 +12,38 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import mcmillan.jeff.networker.Main;
-import mcmillan.jeff.networker.math.Vec2Int;
+import org.joml.Vector2f;
 
-public class Display {
+import mcmillan.jeff.networker.Launch;
+
+public class Simple2DDisplay {
 	
-	private GamePanel panel;
+	private Simple2DGamePanel panel;
+	private JFrame frame;
 	private int width, height;
 	private int frames;
 	
-	public Display(int _width, int _height) {
+	public Simple2DDisplay(int _width, int _height) {
 		width = _width;
 		height = _height;
-		JFrame frame = new JFrame("Networker");
+		
+		frame = new JFrame("Networker");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		
+		setupMenubar();
 		
+		panel = new Simple2DGamePanel(this, width, height);
+		
+		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		
+		
+		frame.pack();
+		
+		frame.setVisible(true);
+	}
+	
+	private void setupMenubar() {
 		JMenuBar menubar = new JMenuBar();
 		JMenu menu = new JMenu("File");
 		
@@ -41,7 +56,7 @@ public class Display {
 		renderItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Main.running = false;
+				Launch.game.running = false;
 			}
 		});
 		
@@ -60,17 +75,8 @@ public class Display {
 		menu.add(exitItem);
 		menubar.add(menu);
 		frame.setJMenuBar(menubar);
-		
-		panel = new GamePanel(this, width, height);
-		
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		
-		
-		frame.pack();
-		
-		frame.setVisible(true);
 	}
-	
+
 	public void callForNextFrame() {
 		panel.repaint();
 	}
@@ -85,22 +91,20 @@ public class Display {
 		
 		double a = ((double)frames) / 60; 
 		double radius = 100;
-		double _x = Math.cos(a) * radius;
-		double _y = Math.sin(a) * radius;
 		
-		Vec2Int redBox = new Vec2Int((int)Math.round(_x), (int)Math.round(_y));
+		Vector2f redBox = new Vector2f((float)(Math.cos(a) * radius), (float)(Math.sin(a) * radius));
 		int r = (int) radius;
 		
 		g.setColor(Color.red);
-		g.fillRect(20+r+redBox.x, 20+r+redBox.y, 60, 60);
+		g.fillRect((int)(20+r+redBox.x), (int)(20+r+redBox.y), 60, 60);
 		frames++;
 	}
 	
 	class RenderListener implements ActionListener {
 
-		private Display display;
+		private Simple2DDisplay display;
 		
-		public RenderListener(Display _display) {
+		public RenderListener(Simple2DDisplay _display) {
 			display = _display;
 		}
 		

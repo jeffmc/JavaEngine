@@ -1,4 +1,4 @@
-package mcmillan.jeff.networker.gfx;
+package mcmillan.jeff.networker.gfx.simple2D;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -6,7 +6,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-public class GamePanel extends JPanel {
+public class Simple2DGamePanel extends JPanel {
 	/**
 	 * 
 	 */
@@ -14,10 +14,10 @@ public class GamePanel extends JPanel {
 	
 	public int width, height;
 	
-	public Display display;
+	public Simple2DDisplay display;
 
 	
-	public GamePanel(Display _display, int _width, int _height) {
+	public Simple2DGamePanel(Simple2DDisplay _display, int _width, int _height) {
 		super(true);
 		display = _display;
 		width = _width;
