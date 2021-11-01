@@ -1,10 +1,10 @@
 package mcmillan.jeff.networker.gfx.simple2D;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+
+import mcmillan.jeff.networker.gfx.simple2D.Simple2DRenderer.Drawable;
 
 public class Simple2DDisplay {
 	
@@ -25,31 +25,14 @@ public class Simple2DDisplay {
 		panel = new Simple2DCanvas(this, width, height);
 		
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		
-		
 		frame.pack();
 		
 		frame.setVisible(true);
 	}
 
-	public void callForNextFrame() {
+	public void draw(Drawable d) {
+		panel.useDraw(d);
 		panel.repaint();
-	}
-	
-	class RenderListener implements ActionListener {
-
-		private Simple2DDisplay display;
-		
-		public RenderListener(Simple2DDisplay _display) {
-			display = _display;
-		}
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			display.callForNextFrame();
-			System.out.println("Render through menu item!");
-		}
-		
 	}
 	
 }

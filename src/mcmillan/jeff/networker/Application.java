@@ -1,6 +1,7 @@
 package mcmillan.jeff.networker;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 import org.joml.Vector2f;
 
@@ -36,12 +37,7 @@ public class Application {
 			if (now-lastFrame>=target) {
 				lastFrame = now;
 				// TODO: Move to layerStack
-				renderer.beginFrame();
-				if (renderer.hasGraphics()) {
-					System.out.println("draw!");
-					draw(renderer);
-					renderer.endFrame();
-				}
+				renderer.draw(new AppDraw(this));
 			}
 		}
 		if (running) {
@@ -49,12 +45,7 @@ public class Application {
 		}
 	}
 	
-	public void draw(Simple2DRenderer r) {
-		r.setColor(Color.BLACK);
-		int w = r.getWidth(), h = r.getHeight();
-		System.out.println(w + ", " + h);
-		r.fillRect(0, 0, w, h);
-		
+	public void draw(Graphics g) {
 		double a = ((double)frames  ) / 60;
 
 		Vector2f rad = new Vector2f(100f, 100f);
@@ -63,8 +54,23 @@ public class Application {
 		pos.add(20, 20);
 		Vector2f size = new Vector2f(60f, 60f);
 		
-		r.setColor(Color.red);
-		r.fillRect((int)pos.x, (int)pos.y, (int)size.x, (int)size.y);
+		g.setColor(Color.RED);
+		g.fillRect((int)pos.x, (int)pos.y, (int)size.x, (int)size.y);
 		frames++;
 	}
+	
+	class AppDraw implements Simple2DRenderer.Drawable {
+
+		private Application app;
+		
+		public AppDraw(Application a) {
+			app = a;
+		}
+		
+		@Override
+		public void draw(Graphics g) {
+			app.draw(g);
+		}
+	}
+	
 }
