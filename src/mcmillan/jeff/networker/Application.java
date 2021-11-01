@@ -37,8 +37,11 @@ public class Application {
 				lastFrame = now;
 				// TODO: Move to layerStack
 				renderer.beginFrame();
-				draw(renderer);
-				renderer.endFrame();
+				if (renderer.hasGraphics()) {
+					System.out.println("draw!");
+					draw(renderer);
+					renderer.endFrame();
+				}
 			}
 		}
 		if (running) {
@@ -47,17 +50,21 @@ public class Application {
 	}
 	
 	public void draw(Simple2DRenderer r) {
-		r.setColor(Color.white);
-		r.drawRect(10, 10, 620, 340);
+		r.setColor(Color.BLACK);
+		int w = r.getWidth(), h = r.getHeight();
+		System.out.println(w + ", " + h);
+		r.fillRect(0, 0, w, h);
 		
-		double a = ((double)frames  ) / 60; 
-		double radius = 100;
-		
-		Vector2f redBox = new Vector2f((float)(Math.cos(a) * radius), (float)(Math.sin(a) * radius));
-		int rad = (int) radius;
+		double a = ((double)frames  ) / 60;
+
+		Vector2f rad = new Vector2f(100f, 100f);
+		Vector2f pos = new Vector2f((float)(Math.cos(a) * rad.x), (float)(Math.sin(a) * rad.y));
+		pos.add(rad);
+		pos.add(20, 20);
+		Vector2f size = new Vector2f(60f, 60f);
 		
 		r.setColor(Color.red);
-		r.fillRect((int)(20+rad+redBox.x), (int)(20+rad+redBox.y), 60, 60);
+		r.fillRect((int)pos.x, (int)pos.y, (int)size.x, (int)size.y);
 		frames++;
 	}
 }

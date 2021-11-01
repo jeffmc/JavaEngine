@@ -9,27 +9,43 @@ public class Simple2DRenderer extends Renderer {
 	public Simple2DDisplay display;
 	private Graphics graphics;
 	private int width, height;
+	private boolean activeFrame;
 	
 	public Simple2DRenderer(int _width, int _height) {
 		width = _width;
 		height = _height;
 		display = new Simple2DDisplay(this, width, height);
+		activeFrame = false;
 	}
 	
 	public void beginFrame() {
 		display.callForNextFrame();
-		graphics.setColor(Color.black);
-		graphics.fillRect(0, 0, width, height);
+		activeFrame = true;
 	}
 	
 	public void endFrame() {
 		graphics.dispose();
+		activeFrame = false;
 	}
 	
 	public void setGraphics(Graphics g) {
 		this.graphics = g;
+		g.setColor(Color.RED);
+		g.fillRect(10, 10, 40, 40);
+	}
+	
+	public boolean hasGraphics() {
+		return graphics != null && activeFrame;
 	}
 
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
 	public void setColor(Color c) {
 		graphics.setColor(c);
 		
